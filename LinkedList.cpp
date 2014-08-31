@@ -53,7 +53,7 @@ bool LinkedList::insert(int value, int offset) {
 
 	// New head node
 	if (offset == 0) {
-		newNode->setNext(_first)
+		newNode->setNext(_first);
 		_first = newNode;
 		_size++;
 		return true;
@@ -113,6 +113,8 @@ bool LinkedList::erase(int value) {
 			current = current->getNext();
 		}
 	}
+
+	return found;
 }
 
 int LinkedList::size() const {
