@@ -43,9 +43,37 @@ LinkedList* LinkedList::getReverse() const {
 }
 
 bool LinkedList::insert(int value, int offset) {
-	// TODO: Fill this in
-	std::cerr << "LinkedList::insert(value, offset) is not yet implemented" << std::endl;
-	exit(1);
+	// Sanity checks
+	// offset must be >=0 and <= _size
+	if (offset > _size || offset < 0) {
+		return false;
+	}
+
+	Node* newNode = new Node(value);
+
+	// New head node
+	if (offset == 0) {
+		newNode->setNext(_first)
+		_first = newNode;
+		_size++;
+		return true;
+	}
+
+	// New non-head node
+	Node* current = _first->getNext();
+	Node* previous = _first;
+	int current_offset = 1;
+
+	while (current_offset != offset) {
+		previous = current;
+		current = current->getNext();
+		current_offset++;
+	}
+
+	newNode->setNext(current);
+	previous->setNext(newNode);
+	_size++;
+	return true;
 }
 
 bool LinkedList::erase(int value) {
