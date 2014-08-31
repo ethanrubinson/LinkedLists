@@ -77,9 +77,42 @@ bool LinkedList::insert(int value, int offset) {
 }
 
 bool LinkedList::erase(int value) {
-	// TODO: Fill this in
-	std::cerr << "LinkedList::erase(value) is not yet implemented" << std::endl;
-	exit(1);
+	Node* current = _first;
+	Node* previous = current;
+	bool found = false;
+
+	while (current != NULL) {
+
+		// Found a value match, delete the node
+		if (current->getValue() == value) {
+			found = true;
+
+			// Case to delete the head of the list
+			if (current == _first) {
+				_first = current->getNext();
+				delete current;
+
+				current = _first;
+				previous = current;
+				_size--;
+			}
+
+			// Case to delete a non-head node
+			else {
+				previous->setNext(current->getNext());
+				delete current;
+
+				current = previous->getNext();
+				_size--; 
+			}
+		}
+
+		// No value match was found, move on to the next node
+		else{
+			previous = current;
+			current = current->getNext();
+		}
+	}
 }
 
 int LinkedList::size() const {
