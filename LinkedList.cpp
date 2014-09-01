@@ -8,16 +8,41 @@ LinkedList::LinkedList() {
 }
 
 LinkedList::LinkedList(const LinkedList& original) {
-	// TODO: Fill this in
-	std::cerr << "LinkedList::LinkedList(const LinkedList& original) is not yet ";
-	std::cerr << "implemented" << std::endl;
-	exit(1);
+	
+	if (original._size == 0) {
+		_first = NULL;
+		_size = 0;
+	}
+
+	else {
+		_first = new Node(original._first->getValue());
+
+		Node* traverser = original._first->getNext();
+		Node* newLinks = _first;
+
+		while (traverser != NULL) {
+			newLinks->setNext(new Node(traverser->getValue()));
+			newLinks = newLinks->getNext();
+			traverser = traverser->getNext();
+		}
+
+		_size = original._size;
+	}
 }
 
 LinkedList::~LinkedList() {
-	// TODO: Fill this in
-	std::cerr << "LinkedList::~LinkedList() is not yet implemented" << std::endl;
-	exit(1);
+
+	Node* traverser = _first;
+
+	while(traverser != NULL) {
+    	Node* next = traverser->getNext();
+    	delete traverser;
+    	traverser = next;
+	}
+
+	// Reset for sanity
+	_first = NULL;
+	_size = 0;
 }
 
 std::string LinkedList::toString() const {
@@ -37,9 +62,16 @@ std::string LinkedList::toString() const {
 }
 
 LinkedList* LinkedList::getReverse() const {
-	// TODO: Fill this in
-	std::cerr << "LinkedList::getReverse() is not yet implemented" << std::endl;
-	exit(1);
+
+	LinkedList* newList = new LinkedList();
+	Node* traverser = _first;
+
+	while (traverser != NULL) {
+		newList->insert(traverser->getValue(), 0);
+		traverser = traverser->getNext();
+	}
+
+	return newList;
 }
 
 bool LinkedList::insert(int value, int offset) {
