@@ -2,8 +2,37 @@
 
 using namespace std;
 
-// TODO: Define any auxiliary data structures you need to define a doubly
-// linked list
+class Node {
+public:
+	Node(int value) {
+		_value = value;
+		_next = NULL;
+    _prev = NULL;
+	}
+	
+	int getValue() const {
+		return _value;
+	}
+	void setValue(int value) {
+		_value = value;
+	}
+	Node* getNext() const {
+		return _next;
+	}
+  Node* getPrev() const {
+    return _prev;
+  }
+	void setNext(Node* next) {
+		_next = next;
+	}
+  void setPrev(Node* prev) {
+    _prev = prev;
+  }
+private:
+	int _value;
+	Node *_next;
+  Node *_prev;
+};
 
 // Implementation of a doubly linked list.
 class DLinkedList {
