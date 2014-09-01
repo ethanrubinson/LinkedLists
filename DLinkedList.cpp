@@ -18,10 +18,55 @@ DLinkedList::DLinkedList(const DlinkedList& original) {
   }
 
   else {
-    _first = new Node(original._first->getValue());
+    _head = new Node(original._first->getValue());
 
     Node* traverser = original._first->getNext();
     Node* newList = _first;
 
-    while (traverser
+    while (traverser != NULL) {
+      newList.setNext(new Node(traverser->getValue()));
+      newList.setPrev(new Node(traverser->getPrev()->getPrev()));
+      newList = newList->getNext();
+      traverser = traverser->getNext();
+    }
+    _tail = newList; //TODO: Check this
+    _size = original._size;
+  }
+}
+
+DLinkedList::~DlinkedList() {
+
+  // Same as SinglyLinked
+  Node* traverser = _first;
+
+  while(traverser != NULL) {
+    Node* next = traverser->getNext();
+    delete traverser;
+    traverser = next;
+  }
+
+  // Reset
+  _head = NULL;
+  _size = NULL;
+  _tail = NULL;
+}
+
+std::string DLinkedList::toString() const {
+  std::ostringstream result;
+  Node* traverser = _head;
+
+  while (traverser != NULL) {
+    result << traverser->getValue();
+
+    if (traverser->getNext() != NULL) {
+      result << " ";
+    }
+    traverser = traverser->getNext();
+  }
+
+  return result.str();
+}
+
+
+
 
