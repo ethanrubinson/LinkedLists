@@ -84,5 +84,6 @@ public:
 	void sort();
 
 private:
-	// TODO: Fill this in
+  Node *_first; 
+  unsigned int _size;
 };
