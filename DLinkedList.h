@@ -84,6 +84,7 @@ public:
 	void sort();
 
 private:
-  Node *_first; 
+  Node *_head; 
   unsigned int _size;
+  Node *_tail;
 };
