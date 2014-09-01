@@ -154,7 +154,39 @@ int LinkedList::size() const {
 }
 
 void LinkedList::sort() {
-	// TODO: Fill this in
-	std::cerr << "LinkedList::sort() is not yet implemented" << std::endl;
-	exit(1);
+	int num_iters_remaining = _size - 1;
+
+	while(num_iters_remaining > 0){
+		int current_index = 1;
+		int last_index = num_iters_remaining;
+		Node* current = _first->getNext();
+		Node* previous = _first;
+		Node* previous_previous = NULL;
+
+		while (current_index <= last_index) {
+			std::cout << "Checking index " << current_index << " against " << current_index - 1 << std::endl;
+			if (current->getValue() < previous->getValue()) {
+				previous->setNext(current->getNext());
+				current->setNext(previous);
+
+				if(previous == _first){
+					_first = current;
+				}
+				else{
+					previous_previous->setNext(current);
+				}
+
+				previous_previous = current;
+				current = previous->getNext();
+			}
+			else {
+				previous_previous = previous;
+				previous = current;
+				current = current->getNext();
+			}
+			current_index++;
+		}
+
+		num_iters_remaining--;
+	}
 }
