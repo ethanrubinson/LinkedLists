@@ -164,7 +164,6 @@ void LinkedList::sort() {
 		Node* previous_previous = NULL;
 
 		while (current_index <= last_index) {
-			std::cout << "Checking index " << current_index << " against " << current_index - 1 << std::endl;
 			if (current->getValue() < previous->getValue()) {
 				previous->setNext(current->getNext());
 				current->setNext(previous);
