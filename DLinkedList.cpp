@@ -67,6 +67,87 @@ std::string DLinkedList::toString() const {
   return result.str();
 }
 
+DLinkedList* DLinkedList::getReverse() const {
+
+  DlinkedList* newList = new DLinkedList();
+  Node* traverser = _first;
+
+  while (traverser != NULL) {
+    newList->insert(traverser->getValue(),0);
+    traverser = traverser->getNext();
+  }
+  
+  return newList;
+
+}
+
+bool DLinkedList::insert(int value, int offset) {
+  // IV: 0 <= offset <= _size 
+  if (offset > _size || offset < 0) {
+    return false;
+  }
+
+  Node* newNode = new Node(value);
+  
+  // Insert in empty list
+  if (_size == 0) {
+    _head = NewNode;
+    _tail = NewNode;
+    _size++;
+    return true;
+  }
+
+  // Insert at the tail
+  if (offset == size) {
+    newNode->setPrev(_tail);
+    _tail->setNext(newNode);
+    _tail = newNode;
+    return true;
+  }
+
+  // Insert at the head 
+  if(offset == 0) {
+    newNode->setNext(_head);
+    _head->setPrev(newNode);
+    _head = NewNode;
+    return true;
+  }
+
+  // Start iteratign from back
+  if (offset >= size/2) {
+    Node* current = _tail;
+
+    while (offset != 0) {
+    current = current->getPrev();
+    offset--;
+    }
+  }
+
+  // Start iterating from the front
+  else {
+    Node* current = _head;
+    while (offset != 0) {
+      current = current->getNext();
+      offset--;
+    }
+  }
+
+  newNode->setNext(current);
+  newNode->setPrev(current->getPrev);
+  current->getPrev->setNext(newNode);
+  current->setPrev(newNode);
+  _size++;
+  return true;
+
+}
+
+
+
+
+
+
+
+
 
 
 
