@@ -1,4 +1,8 @@
-LinkedList_CS4321
-=================
+Singly & Doubly Linked Lists
+============================
 
-Singly/Doubly linked list for CS 4321
+An implemenentation in C++ of both a singly linked-list and a doubly linked-list
+
+Authors:
+Ethan Rubinson
+Daniel Garay
