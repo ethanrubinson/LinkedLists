@@ -21,13 +21,15 @@ DLinkedList::DLinkedList(const DLinkedList& original) {
     _head = new DNode(original._head->getValue());
 
     DNode* traverser = original._head->getNext();
+    DNode* previous = original._head;
     DNode* newList = _head;
 
     while (traverser != NULL) {
       newList->setNext(new DNode(traverser->getValue()));
-      newList->setPrev(new DNode(traverser->getPrev()->getValue()));
       newList = newList->getNext();
+      newList->setPrev(new DNode(previous->getValue()));
       traverser = traverser->getNext();
+      previous = previous->getNext();
     }
     _tail = newList; //TODO: Check this
     _size = original._size;
@@ -143,10 +145,61 @@ bool DLinkedList::insert(int value, int offset) {
 
 }
 
-bool DLinkedList::erase(int value){
-  std::cerr << "Function not yet implemented" << std::endl;
-  exit(1);
+bool DLinkedList::erase(int value) {
+
+  DNode* current = _head;
+  bool found = false;
+  
+  while (current != NULL) {
+    
+    // If found a match, delete 
+    if (current->getValue() == value) {
+      found = true;
+
+      // Single node case 
+      if (_size == 1) {
+        DNode* delNode = current;
+        _head = NULL
+        _tail = NULL
+        current = current->getNext();
+        delete(delNode);
+      }
+
+      // Deleting at the tail 
+      else if (current == _tail) {
+        DNode* delNode = _tail;
+        _tail = delNode->getPrev();
+        _tail->setNext(NULL);
+        current = current->getNext();
+        delete delNode;
+        _size--;
+      }
+      // Deleting at the head 
+      else if (current == _head) {
+        DNone* delNode == _head;
+        _head = delNode->GetNext();
+        _head->setPrev(NULL);
+        current = current->getNext();
+        delete delNode;
+        _size--;
+      }
+      // Deleting arbitrary location 
+      else {
+        DNode* delNode = current
+        delNode->getNext()->setPrev(delNode->getPrev());
+        delNode->getPrev()->setNext(delNode->getNext());
+        current = current->getNext();
+        delete(delNode);
+        _size--;
+      }
+    }
+    else {
+      current = current->getNext();
+    }
+  } 
+  return found;
 }
+
 
 int DLinkedList::size() const {
   return _size;
