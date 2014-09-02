@@ -5,11 +5,11 @@
 
 DLinkedList::DLinkedList() {
   _head = NULL;
-  _tail = NULL
+  _tail = NULL;
   _size = 0;
 }
 
-DLinkedList::DLinkedList(const DlinkedList& original) {
+DLinkedList::DLinkedList(const DLinkedList& original) {
   // Reference cannot be null 
   if (original._size == 0) {
     _head = NULL;
@@ -18,14 +18,14 @@ DLinkedList::DLinkedList(const DlinkedList& original) {
   }
 
   else {
-    _head = new Node(original._first->getValue());
+    _head = new DNode(original._head->getValue());
 
-    Node* traverser = original._first->getNext();
-    Node* newList = _first;
+    DNode* traverser = original._head->getNext();
+    DNode* newList = _head;
 
     while (traverser != NULL) {
-      newList.setNext(new Node(traverser->getValue()));
-      newList.setPrev(new Node(traverser->getPrev()->getPrev()));
+      newList->setNext(new DNode(traverser->getValue()));
+      newList->setPrev(new DNode(traverser->getPrev()->getValue()));
       newList = newList->getNext();
       traverser = traverser->getNext();
     }
@@ -34,26 +34,26 @@ DLinkedList::DLinkedList(const DlinkedList& original) {
   }
 }
 
-DLinkedList::~DlinkedList() {
+DLinkedList::~DLinkedList() {
 
   // Same as SinglyLinked
-  Node* traverser = _first;
+  DNode* traverser = _head;
 
   while(traverser != NULL) {
-    Node* next = traverser->getNext();
+    DNode* next = traverser->getNext();
     delete traverser;
     traverser = next;
   }
 
   // Reset
   _head = NULL;
-  _size = NULL;
+  _size = 0;
   _tail = NULL;
 }
 
 std::string DLinkedList::toString() const {
   std::ostringstream result;
-  Node* traverser = _head;
+  DNode* traverser = _head;
 
   while (traverser != NULL) {
     result << traverser->getValue();
@@ -69,8 +69,8 @@ std::string DLinkedList::toString() const {
 
 DLinkedList* DLinkedList::getReverse() const {
 
-  DlinkedList* newList = new DLinkedList();
-  Node* traverser = _first;
+  DLinkedList* newList = new DLinkedList();
+  DNode* traverser = _head;
 
   while (traverser != NULL) {
     newList->insert(traverser->getValue(),0);
@@ -87,18 +87,18 @@ bool DLinkedList::insert(int value, int offset) {
     return false;
   }
 
-  Node* newNode = new Node(value);
+  DNode* newNode = new DNode(value);
   
   // Insert in empty list
   if (_size == 0) {
-    _head = NewNode;
-    _tail = NewNode;
+    _head = newNode;
+    _tail = newNode;
     _size++;
     return true;
   }
 
   // Insert at the tail
-  if (offset == size) {
+  if (offset == _size) {
     newNode->setPrev(_tail);
     _tail->setNext(newNode);
     _tail = newNode;
@@ -109,13 +109,15 @@ bool DLinkedList::insert(int value, int offset) {
   if(offset == 0) {
     newNode->setNext(_head);
     _head->setPrev(newNode);
-    _head = NewNode;
+    _head = newNode;
     return true;
   }
 
+  DNode* current;
+
   // Start iteratign from back
-  if (offset >= size/2) {
-    Node* current = _tail;
+  if (offset >= _size/2) {
+    current = _tail;
 
     while (offset != 0) {
     current = current->getPrev();
@@ -125,7 +127,7 @@ bool DLinkedList::insert(int value, int offset) {
 
   // Start iterating from the front
   else {
-    Node* current = _head;
+    current = _head;
     while (offset != 0) {
       current = current->getNext();
       offset--;
@@ -133,21 +135,19 @@ bool DLinkedList::insert(int value, int offset) {
   }
 
   newNode->setNext(current);
-  newNode->setPrev(current->getPrev);
-  current->getPrev->setNext(newNode);
+  newNode->setPrev(current->getPrev());
+  current->getPrev()->setNext(newNode);
   current->setPrev(newNode);
   _size++;
   return true;
 
 }
 
+bool DLinkedList::erase(int value){
+  std::cerr << "Function not yet implemented" << std::endl;
+  exit(1);
+}
 
-
-
-
-
-
-
-
-
-
+int DLinkedList::size() const {
+  return _size;
+}

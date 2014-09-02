@@ -1,37 +1,47 @@
+#ifndef DLINKEDLIST_H_
+#define DLINKEDLIST_H_
+
 #include <string>
 
 using namespace std;
 
-class Node {
+// Class that represents a single node in a doubly linked list
+class DNode {
 public:
-	Node(int value) {
+	DNode(int value) {
 		_value = value;
 		_next = NULL;
-    _prev = NULL;
+    	_prev = NULL;
 	}
 	
 	int getValue() const {
 		return _value;
 	}
+
 	void setValue(int value) {
 		_value = value;
 	}
-	Node* getNext() const {
+
+	DNode* getNext() const {
 		return _next;
 	}
-  Node* getPrev() const {
-    return _prev;
-  }
-	void setNext(Node* next) {
+
+  	DNode* getPrev() const {
+    	return _prev;
+  	}
+
+	void setNext(DNode* next) {
 		_next = next;
 	}
-  void setPrev(Node* prev) {
-    _prev = prev;
-  }
+
+  	void setPrev(DNode* prev) {
+    	_prev = prev;
+  	}
+
 private:
 	int _value;
-	Node *_next;
-  Node *_prev;
+	DNode *_next;
+  	DNode *_prev;
 };
 
 // Implementation of a doubly linked list.
@@ -84,7 +94,9 @@ public:
 	void sort();
 
 private:
-  Node *_head; 
+  DNode *_head; 
+  DNode *_tail;
   unsigned int _size;
-  Node *_tail;
 };
+
+#endif // DLINKEDLIST_H_
