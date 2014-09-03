@@ -148,7 +148,7 @@ void TestDLL() {
 	ASSERT_EQUAL("0 1 3", list.toString());
 	ASSERT_EQUAL(3, list.size());
 
-	ASSERT_EQUAL(true, list.insert(0, 2));
+	ASSERT_EQUAL(true, list.insert(0, 2)); // Seg Fault Here
 	/*ASSERT_EQUAL("0 1 0 3", list.toString());
 	ASSERT_EQUAL(4, list.size());
 
