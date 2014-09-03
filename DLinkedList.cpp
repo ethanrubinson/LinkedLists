@@ -123,7 +123,7 @@ bool DLinkedList::insert(int value, int offset) {
   if (offset >= _size/2) {
     current = _tail;
 
-    while (offset != 0) {
+    while (offset != _size - 1) {
     current = current->getPrev();
     offset--;
     }
@@ -165,6 +165,7 @@ bool DLinkedList::erase(int value) {
         _tail = NULL;
         current = current->getNext();
         delete(delNode);
+        _size--;
       }
 
       // Deleting at the tail 

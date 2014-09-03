@@ -149,7 +149,7 @@ void TestDLL() {
 	ASSERT_EQUAL(3, list.size());
 
 	ASSERT_EQUAL(true, list.insert(0, 2)); // Seg Fault Here
-	/*ASSERT_EQUAL("0 1 0 3", list.toString());
+	ASSERT_EQUAL("0 1 0 3", list.toString());
 	ASSERT_EQUAL(4, list.size());
 
 	// And now some deletions
@@ -187,5 +187,23 @@ void TestDLL() {
 
   list3.sort();
 
-  ASSERT_EQUAL("1 2 3", list3.toString());*/
+  ASSERT_EQUAL("1 2 3", list3.toString());
+
+  list3.erase(1);
+  list3.erase(2);
+  
+  ASSERT_EQUAL("3", list3.toString());
+
+  list3.sort();
+  
+  ASSERT_EQUAL("3", list3.toString());
+
+  list3.insert(1,0);
+  list3.sort();
+
+  ASSERT_EQUAL("1 3", list3.toString());
+
+  list3.erase(1);
+  list3.erase(3);
+  list3.sort(); // Seg Fault. Dont know what the bahavior should be here. 
 }
