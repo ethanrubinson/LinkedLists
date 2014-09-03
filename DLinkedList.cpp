@@ -104,6 +104,7 @@ bool DLinkedList::insert(int value, int offset) {
     newNode->setPrev(_tail);
     _tail->setNext(newNode);
     _tail = newNode;
+    _size++;
     return true;
   }
 
@@ -112,6 +113,7 @@ bool DLinkedList::insert(int value, int offset) {
     newNode->setNext(_head);
     _head->setPrev(newNode);
     _head = newNode;
+    _size++;
     return true;
   }
 
@@ -159,8 +161,8 @@ bool DLinkedList::erase(int value) {
       // Single node case 
       if (_size == 1) {
         DNode* delNode = current;
-        _head = NULL
-        _tail = NULL
+        _head = NULL;
+        _tail = NULL;
         current = current->getNext();
         delete(delNode);
       }
@@ -176,8 +178,8 @@ bool DLinkedList::erase(int value) {
       }
       // Deleting at the head 
       else if (current == _head) {
-        DNone* delNode == _head;
-        _head = delNode->GetNext();
+        DNode* delNode = _head;
+        _head = delNode->getNext();
         _head->setPrev(NULL);
         current = current->getNext();
         delete delNode;
@@ -185,7 +187,7 @@ bool DLinkedList::erase(int value) {
       }
       // Deleting arbitrary location 
       else {
-        DNode* delNode = current
+        DNode* delNode = current;
         delNode->getNext()->setPrev(delNode->getPrev());
         delNode->getPrev()->setNext(delNode->getNext());
         current = current->getNext();
@@ -203,4 +205,16 @@ bool DLinkedList::erase(int value) {
 
 int DLinkedList::size() const {
   return _size;
+}
+
+void DLinkedList::sort() {
+  for (DNode *current = _head; current->getNext() != NULL; current = current->getNext()) {
+    for (DNode *traverser = current->getNext(); traverser != NULL; traverser = traverser->getNext()) {
+      if (current->getValue() > traverser->getValue()) {
+        int data = current->getValue();
+        current->setValue(traverser->getValue());
+        traverser->setValue(data);
+      }
+    }
+  }
 }
