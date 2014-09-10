@@ -21,17 +21,16 @@ DLinkedList::DLinkedList(const DLinkedList& original) {
     _head = new DNode(original._head->getValue());
 
     DNode* traverser = original._head->getNext();
-    DNode* previous = original._head;
     DNode* newList = _head;
 
     while (traverser != NULL) {
       newList->setNext(new DNode(traverser->getValue()));
+      DNode* tmp = newList;
       newList = newList->getNext();
-      newList->setPrev(new DNode(previous->getValue()));
+      newList->setPrev(tmp);
       traverser = traverser->getNext();
-      previous = previous->getNext();
     }
-    _tail = newList; //TODO: Check this
+    _tail = newList;
     _size = original._size;
   }
 }
@@ -164,7 +163,7 @@ bool DLinkedList::erase(int value) {
         _head = NULL;
         _tail = NULL;
         current = current->getNext();
-        delete(delNode);
+        delete delNode;
         _size--;
       }
 
@@ -192,7 +191,7 @@ bool DLinkedList::erase(int value) {
         delNode->getNext()->setPrev(delNode->getPrev());
         delNode->getPrev()->setNext(delNode->getNext());
         current = current->getNext();
-        delete(delNode);
+        delete delNode;
         _size--;
       }
     }
@@ -209,6 +208,9 @@ int DLinkedList::size() const {
 }
 
 void DLinkedList::sort() {
+  if(_size <= 1) {
+    return;
+  }
   for (DNode *current = _head; current->getNext() != NULL; current = current->getNext()) {
     for (DNode *traverser = current->getNext(); traverser != NULL; traverser = traverser->getNext()) {
       if (current->getValue() > traverser->getValue()) {

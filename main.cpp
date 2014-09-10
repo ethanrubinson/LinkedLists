@@ -148,7 +148,7 @@ void TestDLL() {
 	ASSERT_EQUAL("0 1 3", list.toString());
 	ASSERT_EQUAL(3, list.size());
 
-	ASSERT_EQUAL(true, list.insert(0, 2)); // Seg Fault Here
+	ASSERT_EQUAL(true, list.insert(0, 2)); 
 	ASSERT_EQUAL("0 1 0 3", list.toString());
 	ASSERT_EQUAL(4, list.size());
 
@@ -179,7 +179,7 @@ void TestDLL() {
 	// so we need to tell the heap manager that we're done with it.
 	delete reversed;
 
-  // Checking sort
+  // Checking sort - Dan Tests
   DLinkedList list3;
   list3.insert(3,0);
   list3.insert(2,1);
@@ -205,5 +205,29 @@ void TestDLL() {
 
   list3.erase(1);
   list3.erase(3);
-  list3.sort(); // Seg Fault. Dont know what the bahavior should be here. 
+
+  list3.sort();
+
+  list3.insert(3,0);
+  list3.insert(8,0);
+  list3.insert(10,0);
+
+  list3.sort();
+
+  ASSERT_EQUAL("3 8 10", list3.toString());
+
+  DLinkedList list4(list3);
+
+  ASSERT_EQUAL("3 8 10", list4.toString());
+  ASSERT_EQUAL(3, list4.size());
+  ASSERT_EQUAL("3 8 10", list3.toString());
+
+  list4.erase(10); 
+  list4.erase(8);
+  list4.erase(3);
+
+  ASSERT_EQUAL("", list4.toString());
+
+  ASSERT_EQUAL("3 8 10", list3.toString());
+
 }
