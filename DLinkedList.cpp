@@ -3,12 +3,14 @@
 
 #include "DLinkedList.h"
 
+/*Doubly Linked List default constructor*/
 DLinkedList::DLinkedList() {
   _head = NULL;
   _tail = NULL;
   _size = 0;
 }
 
+/*Doubly Linked List constructor. Creates a copy of the provided list*/
 DLinkedList::DLinkedList(const DLinkedList& original) {
   // Reference cannot be null 
   if (original._size == 0) {
@@ -35,9 +37,8 @@ DLinkedList::DLinkedList(const DLinkedList& original) {
   }
 }
 
+/*Doubly Linked List destructor.*/
 DLinkedList::~DLinkedList() {
-
-  // Same as SinglyLinked
   DNode* traverser = _head;
 
   while(traverser != NULL) {
@@ -46,12 +47,13 @@ DLinkedList::~DLinkedList() {
     traverser = next;
   }
 
-  // Reset
+  // Reset for sanity
   _head = NULL;
-  _size = 0;
   _tail = NULL;
+  _size = 0;
 }
 
+/*= a string representation of the Doubly Linked List*/
 std::string DLinkedList::toString() const {
   std::ostringstream result;
   DNode* traverser = _head;
@@ -68,6 +70,7 @@ std::string DLinkedList::toString() const {
   return result.str();
 }
 
+/*= a new Doubly Linked List that is the reverse of the calling Doubly Linked List*/
 DLinkedList* DLinkedList::getReverse() const {
 
   DLinkedList* newList = new DLinkedList();
@@ -79,9 +82,11 @@ DLinkedList* DLinkedList::getReverse() const {
   }
   
   return newList;
-
 }
 
+/*Inserts an element into the Doubly Linked List at the specified offset.
+  The offset must be <= the current size of the list.
+  Returns a boolean indicating if the insertion was successful.*/
 bool DLinkedList::insert(int value, int offset) {
   // IV: 0 <= offset <= _size 
   if (offset > _size || offset < 0) {
@@ -123,8 +128,8 @@ bool DLinkedList::insert(int value, int offset) {
     current = _tail;
 
     while (offset != _size - 1) {
-    current = current->getPrev();
-    offset++;
+	  current = current->getPrev();
+	  offset++;
     }
   }
 
@@ -146,6 +151,8 @@ bool DLinkedList::insert(int value, int offset) {
 
 }
 
+/*Removes all elements with the specified value from the Doubly Linked List.
+  Returns a boolean indicating if any elements were removed*/
 bool DLinkedList::erase(int value) {
 
   DNode* current = _head;
@@ -202,11 +209,12 @@ bool DLinkedList::erase(int value) {
   return found;
 }
 
-
+/*= the size of the Doubly Linked List.*/
 int DLinkedList::size() const {
   return _size;
 }
 
+/*Sorts the Doubly Linked List in ascending order*/
 void DLinkedList::sort() {
   if(_size <= 1) {
     return;

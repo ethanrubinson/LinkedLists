@@ -2,11 +2,12 @@
 #include <sstream>
 #include "LinkedList.h"
 
+/*Singly Linked List default constructor*/
 LinkedList::LinkedList() {
 	_first = NULL;
 	_size = 0;
 }
-
+/*Singly Linked List constructor. Creates a copy of the provided list*/
 LinkedList::LinkedList(const LinkedList& original) {
 	
 	if (original._size == 0) {
@@ -30,6 +31,7 @@ LinkedList::LinkedList(const LinkedList& original) {
 	}
 }
 
+/*Singly Linked List destructor.*/
 LinkedList::~LinkedList() {
 
 	Node* traverser = _first;
@@ -45,6 +47,7 @@ LinkedList::~LinkedList() {
 	_size = 0;
 }
 
+/*= a string representation of the Singly Linked List*/
 std::string LinkedList::toString() const {
 	std::ostringstream result;
 	Node* traverser = _first;
@@ -61,6 +64,7 @@ std::string LinkedList::toString() const {
 	return result.str();
 }
 
+/*= a new Singly Linked List that is the reverse of the calling Singly Linked List*/
 LinkedList* LinkedList::getReverse() const {
 
 	LinkedList* newList = new LinkedList();
@@ -74,6 +78,9 @@ LinkedList* LinkedList::getReverse() const {
 	return newList;
 }
 
+/*Inserts an element into the Singly Linked List at the specified offset.
+  The offset must be <= the current size of the list.
+  Returns a boolean indicating if the insertion was successful.*/
 bool LinkedList::insert(int value, int offset) {
 	// Sanity checks
 	// offset must be >=0 and <= _size
@@ -108,6 +115,8 @@ bool LinkedList::insert(int value, int offset) {
 	return true;
 }
 
+/*Removes all elements with the specified value from the Singly Linked List.
+  Returns a boolean indicating if any elements were removed*/
 bool LinkedList::erase(int value) {
 	Node* current = _first;
 	Node* previous = current;
@@ -149,10 +158,12 @@ bool LinkedList::erase(int value) {
 	return found;
 }
 
+/*= the size of the Singly Linked List.*/
 int LinkedList::size() const {
 	return _size;
 }
 
+/*Sorts the Singly Linked List in ascending order*/
 void LinkedList::sort() {
 	int num_iters_remaining = _size - 1;
 
