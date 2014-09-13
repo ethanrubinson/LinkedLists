@@ -124,7 +124,7 @@ bool DLinkedList::insert(int value, int offset) {
 
     while (offset != _size - 1) {
     current = current->getPrev();
-    offset--;
+    offset++;
     }
   }
 
